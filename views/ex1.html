@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Exercice 1</h1><br>
+
+  <h2>Sample Form</h2>
+  <form id="sampleForm" action="/submit" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="name@domain" required><br><br>
+
+    <label>Payment Type:</label><br>
+    <input type="radio" id="cash" name="payment" value="cash">
+    <label for="cash">Cash</label><br>
+    <input type="radio" id="credit" name="payment" value="credit">
+    <label for="credit">Credit Card</label><br>
+    <input type="radio" id="gpay" name="payment" value="gpay">
+    <label for="gpay">Google Pay</label><br>
+    <input type="radio" id="applepay" name="payment" value="applepay">
+    <label for="applepay">Apple Pay</label><br><br>
+
+    <input type="checkbox" id="promotion" name="promotion">
+    <label for="promotion">Sign me up for special promotions</label><br><br>
+
+    <label for="location">Preferred Location:</label>
+    <select id="location" name="location">
+      <option value="Los Angeles">Los Angeles</option>
+      <option value="Orange County">Orange County</option>
+      <option value="Riverside">Riverside</option>
+      <option value="San Diego">San Diego</option>
+    </select><br><br>
+
+    <button type="submit">Submit</button>
+    <button type="reset">Cancel</button>
+  </form>
+
+  <h3>Form Data Entered</h3>
+  <table id="formDataTable">
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+    </tr>
+  </table>
+
+  <script src="/js/Exercice4.js"></script><br>
+  <button onclick="window.location.href='/'">Done</button>
+
+
+</body>
+</html>
