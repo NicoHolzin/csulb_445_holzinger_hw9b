@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Article</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Nicolas's Articles</h1>
+
+  <h2>Add new article</h2>
+  <form id="articleForm" action="/articles" method="POST">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required><br><br>
+
+    <label for="content">Content:</label><br>
+    <textarea id="content" name="content" rows="5" cols="30" required></textarea><br><br>
+
+    <button type="submit">Add</button>
+  </form>
+
+  <p id="resultMessage"></p>
+
+  <h2>All Articles</h2>
+  <ul id="articlesList"></ul>
+
+  <script>
+    // Debug issue : I can not load an external js file so I have to write the script here...
+    async function loadArticles() {
+      const response = await fetch("/api/articles");
+      const articles = await response.json();
+      const articlesList = document.getElementById("articlesList");
+
+      // we clear any previous content
+      articlesList.innerHTML = '';
+
+      // then we display each article as a list item
+      articles.forEach(article => {
+        const listItem = document.createElement("li");
+        listItem.textContent = `ID: ${article.id}, Title: ${article.title}, Content: ${article.content}`;
+        articlesList.appendChild(listItem);
+      });
+    }
+    // then we load the articles when the page loads
+    document.addEventListener("DOMContentLoaded", loadArticles);
+
+
+    document.getElementById("articleForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const formData = new FormData(event.target);
+      const data = {
+        title: formData.get("title"),
+        content: formData.get("content"),
+      };
+
+      const response = await fetch("/articles", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.text();
+      document.getElementById("resultMessage").textContent = result;
+
+      loadArticles();
+    });
+  </script>
+</body>
+</html>

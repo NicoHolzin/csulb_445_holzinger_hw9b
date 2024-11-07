@@ -16,8 +16,6 @@ app.get("/ex1", (req, res) => {
 
 app.post("/submit", (req, res) => {
   const { name, email } = req.body;
-
-  // Send back the HTML with the confirmation message
   res.send(`
       <!DOCTYPE html>
       <html lang="en">
@@ -42,29 +40,29 @@ app.get("/ex2", (req, res) => {
 
 app.post("/api/countries", (req, res) => {
     const { name, countries } = req.body;
-
     const numCountries = countries ? countries.length : 0;
     const message = `Votre nom est ${name} et vous avez visité ${numCountries} pays. Continuez à voyager !`;
-
     res.json({ message });
+});
+
+app.get("/ex3", (req, res) => {
+  res.sendFile('ex3.html', { root: __dirname + '/views' });
 });
 
 let articles = [];
 app.post("/articles", (req, res) => {
   const { title, content } = req.body;
-
-  // Determine the next article ID
   const maxId = articles.length > 0 ? Math.max(...articles.map(article => article.id)) : 0;
   const newId = maxId + 1;
-
-  // Create and store the new article
   const newArticle = { id: newId, title, content };
   articles.push(newArticle);
-
-  // Send a response with the article title and ID
   res.send(`New article added successfully with title "${title}" and ID ${newId}!`);
 });
 
+app.get("/api/articles", (req, res) => {
+  res.json(articles);
+});
+
 app.listen(PORT, () => {
-    console.log(`Serveur en cours d'exécution sur http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
