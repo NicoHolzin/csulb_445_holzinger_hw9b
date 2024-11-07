@@ -3,39 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Asher's Countries API Call</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <title>Nicolas's Countries API Call</title>
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-  <h1>Asher's Countries API Call</h1>
+  <h1>Nicolas's Countries API Call</h1>
   <button id="callApiButton">Call API</button>
   <p id="resultMessage"></p>
 
-  <script>
-    document.getElementById("callApiButton").addEventListener("click", () => {
-      // Prepare JSON data to send in the POST request
-      const requestData = {
-        name: "Asher",
-        countries: ["France", "Germany", "Spain", "Italy", "Portugal"] // Example countries
-      };
-
-      // Call the API using fetch
-      fetch("/api/countries", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(requestData)
-      })
-      .then(response => response.json())
-      .then(data => {
-        // Display the response message in the HTML
-        document.getElementById("resultMessage").textContent = data.message;
-      })
-      .catch(error => {
-        console.error("Error:", error);
-      });
-    });
-  </script>
+  <script src="../public/ex2.js"></script>
 </body>
 </html>

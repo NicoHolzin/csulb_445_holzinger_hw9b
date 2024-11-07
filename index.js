@@ -16,19 +16,33 @@ app.get("/ex1", (req, res) => {
   res.sendFile('ex1.html', { root: __dirname + '/views' });
 });
 
-
-// Route pour l'exercice 1 (submit), qui renvoie une version modifiée de hex1.html
 app.post("/submit", (req, res) => {
-    // On renvoie hex1.html avec le script de confirmation
-    res.sendFile('ex1.html', { root: __dirname + '/views' });
+  const { name, email } = req.body;
+
+  // Send back the HTML with the confirmation message
+  res.send(`
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Confirmation</title>
+          <link rel="stylesheet" href="/css/style.css">
+      </head>
+      <body>
+          <h1>Confirmation</h1>
+          <p>${name}, thank you for your order. We will keep you posted on delivery status at ${email}.</p>
+          <a href="/">Back to Form</a>
+      </body>
+      </html>
+  `);
 });
 
 // Route principale qui sert hex1.html
 app.get("/ex2", (req, res) => {
-  res.sendFile('ex2.html', { root: __dirname + '/../views' });
+  res.sendFile('ex2.html', { root: __dirname + '/views' });
 });
 
-// Route pour l'exercice 2 (API pour les pays visités)
 app.post("/api/countries", (req, res) => {
     const { name, countries } = req.body;
 
@@ -40,10 +54,6 @@ app.post("/api/countries", (req, res) => {
     res.json({ message });
 });
 
-// Route pour hex2.html (Exercice 2)
-app.get("/hex2", (req, res) => {
-    res.sendFile(path.join(__dirname, "views", "hex2.html"));
-});
 
 app.listen(PORT, () => {
     console.log(`Serveur en cours d'exécution sur http://localhost:${PORT}`);

@@ -1,31 +1,28 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+document.getElementById("callApiButton").addEventListener("click", () => {
+  // Prepare JSON data to send in the POST request
+  const travelData = {
+    name: "Nicolas",
+    countries: [
+      { name: "USA", year: 2024 },
+      { name: "Belgium", year: 2024 },
+      { name: "Austria", year: 2023 }
+    ]
+  };
 
-const app = express();
-const PORT = 3001;
-
-// Middleware to parse JSON data
-app.use(bodyParser.json());
-
-// Route to handle POST request to "/api/countries"
-app.post("/api/countries", (req, res) => {
-    const { name, countries } = req.body;
-
-    // Calculate the number of visited countries
-    const numCountries = countries ? countries.length : 0;
-
-    // Response message
-    const message = `Your name is ${name} and you visited ${numCountries} countries. Keep traveling!`;
-
-    // Send response as JSON
-    res.json({ message });
-});
-
-// Serve the main HTML page
-app.get("/", (req, res) => {
-  res.sendFile('ex2.html', { root: __dirname + '/../views' });
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  // Call the API using fetch
+  fetch("/api/countries", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(travelData) // Fixed: Use travelData here
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Display the response message in the HTML
+    document.getElementById("resultMessage").textContent = data.message;
+  })
+  .catch(error => {
+    console.error("Error:", error);
+  });
 });
