@@ -1,11 +1,13 @@
 const express = require("express");
 
+
 const app = express();
 const PORT = 3000;
 
 // Middleware pour parser les données JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 // Route principale 
 app.get("/", (req, res) => {
