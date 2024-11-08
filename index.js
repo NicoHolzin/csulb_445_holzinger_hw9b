@@ -41,7 +41,7 @@ app.get("/ex2", (req, res) => {
 app.post("/api/countries", (req, res) => {
     const { name, countries } = req.body;
     const numCountries = countries ? countries.length : 0;
-    const message = `Votre nom est ${name} et vous avez visité ${numCountries} pays. Continuez à voyager !`;
+    const message = `Your name is ${name} and you have visited ${numCountries} countries. Continue to travel !`;
     res.json({ message });
 });
 
@@ -52,8 +52,12 @@ app.get("/ex3", (req, res) => {
 let articles = [];
 app.post("/articles", (req, res) => {
   const { title, content } = req.body;
-  const maxId = articles.length > 0 ? Math.max(...articles.map(article => article.id)) : 0;
-  const newId = maxId + 1;
+  let maxId = 0;
+  if (articles.length > 0) {
+    let ids = articles.map(article => article.id);
+    maxId = Math.max(...ids);
+  }
+ const newId = maxId + 1;
   const newArticle = { id: newId, title, content };
   articles.push(newArticle);
   res.send(`New article added successfully with title "${title}" and ID ${newId}!`);
